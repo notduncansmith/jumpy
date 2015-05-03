@@ -14,7 +14,6 @@ pwd # /Users/duncan/working
 
 ## Usage
 
-*Protip: Add `alias j='jump'` to your `~/.bashrc` file*
 
 Before you can use it, you should probably install it!
 
@@ -23,6 +22,7 @@ Before you can use it, you should probably install it!
 
 ### Step 2 - your bashrc/zshrc/whateverrc
 Add the following line: `source /.npm-packages/lib/node_modules/jumpy/jump`
+*Protip: Add `alias j='jump'` while you're there*
 
 ### Now use it
 
