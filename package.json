@@ -3,16 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-
   "bin": {
     "jumpy": "./app.js"
   },
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./build.sh"
   },
-
   "author": "Duncan Smith",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "prettyjson": "^1.1.0",
+    "touch": "0.0.3",
+    "yargs": "^3.8.0"
+  }
 }
