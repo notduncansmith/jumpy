@@ -16,6 +16,16 @@ pwd # /Users/duncan/working
 
 *Protip: Add `alias j='jump'` to your `~/.bashrc` file*
 
+Before you can use it, you should probably install it!
+
+### Step 1 - npm
+`npm install -g jumpy`
+
+### Step 2 - your bashrc/zshrc/whateverrc
+Add the following line: `source /.npm-packages/lib/node_modules/jumpy/jump`
+
+### Now use it
+
 `j -a` - adds the current directory to your alias list
 
 `j -a --as foo` - as above, but aliased to `foo` rather than the directory name
