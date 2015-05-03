@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+jump() {
+  prefix=$(npm prefix -g)
+  output="$($prefix/bin/jumpy $@)"
+  first="${output:0:1}"
+  rest="${output:1}"
+
+  if [[ "$first" == "%" ]]
+  then
+   cd "$rest"
+  else
+    echo "$output"
+  fi
+}
