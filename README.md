@@ -31,6 +31,8 @@ Add the following line: `source /.npm-packages/lib/node_modules/jumpy/jump`
 
 `j -a --as foo` - as above, but aliased to `foo` rather than the directory name
 
+`j -r` - removes the current directory from your alias list
+
 `j -r foo` - removes the `foo` alias
 
 `j -l` - print all current aliases
