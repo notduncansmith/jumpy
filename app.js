@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var CWD, DIR, FILE, add, args, data, fs, jump, list, match, path, pretty, read, remove, touch, write;
+var CWD, DIR, FILE, add, addServer, args, data, fs, jump, list, match, path, pretty, read, remove, touch, write;
 
 fs = require('fs');
 
@@ -17,12 +17,16 @@ args = require('yargs').usage('Usage: $0 <command> [options] or $0 <directory>')
   describe: 'Add the current directory to the alias list',
   type: 'boolean',
   alias: 'add'
-}).option('as', {
+}).option('s', {
+  describe: 'Add the given server to the alias list',
+  type: 'string',
+  alias: 'server'
+}).implies('s', 'as').option('as', {
   describe: 'Add the current directory to the alias list under the specified alias',
   example: '$0 -a --as foo'
 }, 'Add the current directory as "foo"', {
   type: 'string'
-}).implies('as', 'a').option('d', {
+}).option('d', {
   describe: 'Remove the given alias',
   type: 'boolean',
   alias: ['delete', 'r', 'remove']
@@ -49,6 +53,16 @@ add = function(dir) {
   data[dir] = CWD;
   write(data);
   return console.log("Added `" + CWD + "` as `" + dir + "`");
+};
+
+addServer = function(server, alias) {
+  if (server == null) {
+    return "Sorry, you must provide a server to alias";
+  } else {
+    data[alias] = '$' + server;
+    write(data);
+    return console.log("Added `" + server + "` as `" + alias + "`");
+  }
 };
 
 remove = function(target) {
@@ -90,9 +104,17 @@ jump = function(dir) {
   target = data[dir];
   matched = match(dir);
   if (target) {
-    return process.stdout.write("%" + target);
+    if (target[0] === '$') {
+      return process.stdout.write(target);
+    } else {
+      return process.stdout.write("%" + target);
+    }
   } else if (matched) {
-    return process.stdout.write("%" + matched);
+    if (matched[0] === '$') {
+      return process.stdout.write(matched);
+    } else {
+      return process.stdout.write("%" + matched);
+    }
   } else {
     return console.log("`" + dir + "` is not a currently defined alias");
   }
@@ -102,6 +124,8 @@ if (args.l) {
   list();
 } else if (args.a) {
   add(args.as);
+} else if (args.s) {
+  addServer(args.s, args.as);
 } else if (args.d) {
   remove(args.d);
 } else if (args.r) {

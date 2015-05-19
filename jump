@@ -6,9 +6,10 @@ jump() {
   first="${output:0:1}"
   rest="${output:1}"
 
-  if [[ "$first" == "%" ]]
-  then
+  if [[ "$first" == "%" ]]; then
    cd "$rest"
+  elif [[ "$first" == "$" ]]; then
+    ssh "$rest"
   else
     echo "$output"
   fi

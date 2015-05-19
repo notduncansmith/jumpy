@@ -15,11 +15,16 @@ args = require('yargs')
   type: 'boolean'
   alias: 'add'
 
+.option 's',
+  describe: 'Add the given server to the alias list'
+  type: 'string'
+  alias: 'server'
+.implies 's', 'as'
+
 .option 'as',
   describe: 'Add the current directory to the alias list under the specified alias'
   example: '$0 -a --as foo', 'Add the current directory as "foo"'
   type: 'string'
-.implies 'as', 'a'
 
 .option 'd',
   describe: 'Remove the given alias'
@@ -43,6 +48,14 @@ add = (dir=DIR) ->
   data[dir] = CWD
   write data
   console.log "Added `#{CWD}` as `#{dir}`"
+
+addServer = (server, alias) ->
+  unless server?
+    "Sorry, you must provide a server to alias"
+  else
+    data[alias] = '$' + server
+    write data
+    console.log "Added `#{server}` as `#{alias}`"
 
 remove = (target) ->
   if target is true
@@ -73,11 +86,17 @@ match = (dir) ->
 jump = (dir) ->
   target = data[dir]
   matched = match dir
-
+  
   if target
-    process.stdout.write "%#{target}"
+    if target[0] is '$'
+      process.stdout.write target
+    else
+      process.stdout.write "%#{target}"
   else if matched
-    process.stdout.write "%#{matched}"
+    if matched[0] is '$'
+      process.stdout.write matched
+    else
+      process.stdout.write "%#{matched}"
   else
     console.log "`#{dir}` is not a currently defined alias"
 
@@ -86,6 +105,9 @@ if args.l
 
 else if args.a
   add args.as
+  
+else if args.s
+  addServer args.s, args.as
 
 else if args.d
   remove args.d
