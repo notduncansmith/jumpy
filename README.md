@@ -31,6 +31,8 @@ Add the following line: `source /.npm-packages/lib/node_modules/jumpy/jump`
 
 `j -a --as foo` - as above, but aliased to `foo` rather than the directory name
 
+`j -s --as foo` - adds the given server to the alias list under the given alias
+
 `j -r` - removes the current directory from your alias list
 
 `j -r foo` - removes the `foo` alias
