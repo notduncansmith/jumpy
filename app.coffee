@@ -56,7 +56,7 @@ add = (dir=DIR) ->
 
 addServer = (server, alias) ->
   unless server?
-    "Sorry, you must provide a server to alias"
+    "Sorry, you must provide a server to alias (e.g. `j -s foo --as bar`)"
   else
     data[alias] = '$' + server
     write data
