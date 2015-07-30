@@ -74,7 +74,7 @@ add = function(dir) {
 
 addServer = function(server, alias) {
   if (server == null) {
-    return "Sorry, you must provide a server to alias";
+    return "Sorry, you must provide a server to alias (e.g. `j -s foo --as bar`)";
   } else {
     data[alias] = '$' + server;
     write(data);
@@ -101,7 +101,7 @@ list = function() {
   var out;
   if (Object.keys(data).length === 0) {
     console.log("You don't have any aliases yet.");
-    return console.log("Why don't you try adding one: `jumpy -a`");
+    return console.log("Why don't you try adding one: `j -a`");
   } else {
     out = pretty.render(data);
     return console.log(out);
