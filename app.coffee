@@ -77,7 +77,7 @@ remove = (target) ->
 list = ->
   if Object.keys(data).length is 0
     console.log "You don't have any aliases yet."
-    console.log "Why don't you try adding one: `jumpy -a`"
+    console.log "Why don't you try adding one: `j -a`"
   else
     out = pretty.render data#, {noColor: true}
     console.log out
@@ -91,7 +91,7 @@ match = (dir) ->
 jump = (dir) ->
   target = data[dir]
   matched = match dir
-  
+
   if target
     if target[0] is '$'
       process.stdout.write target
@@ -110,7 +110,7 @@ if args.l
 
 else if args.a
   add args.as
-  
+
 else if args.s
   addServer args.s, args.as
 
