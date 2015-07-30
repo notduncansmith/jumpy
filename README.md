@@ -46,7 +46,7 @@ Add the following line: `source /.npm-packages/lib/node_modules/jumpy/jump`
 
 **Make sure you've run jumpy at least once first.**
 
-Add this to your `~/.zshrc`:
+Add this near the top of your `~/.zshrc` (above the lines you added in Step 2):
 
 ```sh
 
