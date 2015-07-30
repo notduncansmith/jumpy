@@ -36,12 +36,17 @@ args = require('yargs')
 .argv
 
 FILE = "#{process.env.HOME}/.jumprc"
+COMPLETIONS_DIR = "#{process.env.HOME}/.jump_completions"
+COMPLETIONS_FILE = "#{process.env.HOME}/.jump_completions/_jump"
 
 read = -> JSON.parse (fs.readFileSync(FILE, 'utf8') or '{}')
 write = (paths) -> fs.writeFileSync FILE, JSON.stringify(paths)
 
 # Make sure the file exists so we don't blow up
 touch.sync FILE
+mkdirp.sync COMPLETIONS_DIR
+touch.sync COMPLETIONS_FILE
+
 data = read()
 
 add = (dir=DIR) ->
