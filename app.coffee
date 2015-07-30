@@ -2,6 +2,7 @@ fs = require 'fs'
 touch = require 'touch'
 path = require 'path'
 pretty = require 'prettyjson'
+mkdirp = require 'mkdirp'
 
 CWD = process.cwd()
 DIR = CWD.split('/').pop()
@@ -39,8 +40,12 @@ FILE = "#{process.env.HOME}/.jumprc"
 COMPLETIONS_DIR = "#{process.env.HOME}/.jump_completions"
 COMPLETIONS_FILE = "#{process.env.HOME}/.jump_completions/_jump"
 
+escape = (str) -> "\\\"#{str}\\\""
 read = -> JSON.parse (fs.readFileSync(FILE, 'utf8') or '{}')
-write = (paths) -> fs.writeFileSync FILE, JSON.stringify(paths)
+write = (paths) ->
+  completions = Object.keys(paths).map(escape).join(' ')
+  fs.writeFileSync FILE, JSON.stringify(paths)
+  fs.writeFileSync COMPLETIONS_FILE, "#compdef jump\n\n_arguments \"1: :(#{completions})\""
 
 # Make sure the file exists so we don't blow up
 touch.sync FILE
