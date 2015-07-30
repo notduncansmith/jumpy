@@ -42,4 +42,20 @@ Add the following line: `source /.npm-packages/lib/node_modules/jumpy/jump`
 `j -h` - show the help screen
 
 
-Copyright Duncan Smith 2015
+### Zsh Completion
+
+**Make sure you've run jumpy at least once first.**
+
+Add this to your `~/.zshrc`:
+
+```sh
+
+fpath=(~/.jump_completions $fpath)
+autoload -U compinit
+compinit
+zstyle ':completion:*' menu select=2
+compdef _jump j # You only need this line if you aliased "jump" to "j"
+
+```
+
+*Copyright Duncan Smith 2015*
