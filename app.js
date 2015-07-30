@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var CWD, DIR, FILE, add, addServer, args, data, fs, jump, list, match, path, pretty, read, remove, touch, write;
+var COMPLETIONS_DIR, COMPLETIONS_FILE, CWD, DIR, FILE, add, addServer, args, data, escape, fs, jump, list, match, mkdirp, path, pretty, read, remove, touch, write;
 
 fs = require('fs');
 
@@ -8,6 +8,8 @@ touch = require('touch');
 path = require('path');
 
 pretty = require('prettyjson');
+
+mkdirp = require('mkdirp');
 
 CWD = process.cwd();
 
@@ -34,15 +36,30 @@ args = require('yargs').usage('Usage: $0 <command> [options] or $0 <directory>')
 
 FILE = process.env.HOME + "/.jumprc";
 
+COMPLETIONS_DIR = process.env.HOME + "/.jump_completions";
+
+COMPLETIONS_FILE = process.env.HOME + "/.jump_completions/_jump";
+
+escape = function(str) {
+  return "\\\"" + str + "\\\"";
+};
+
 read = function() {
   return JSON.parse(fs.readFileSync(FILE, 'utf8') || '{}');
 };
 
 write = function(paths) {
-  return fs.writeFileSync(FILE, JSON.stringify(paths));
+  var completions;
+  completions = Object.keys(paths).map(escape).join(' ');
+  fs.writeFileSync(FILE, JSON.stringify(paths));
+  return fs.writeFileSync(COMPLETIONS_FILE, "#compdef jump\n\n_arguments \"1: :(" + completions + ")\"");
 };
 
 touch.sync(FILE);
+
+mkdirp.sync(COMPLETIONS_DIR);
+
+touch.sync(COMPLETIONS_FILE);
 
 data = read();
 
