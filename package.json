@@ -13,6 +13,7 @@
   "author": "Duncan Smith",
   "license": "ISC",
   "dependencies": {
+    "mkdirp": "^0.5.1",
     "prettyjson": "^1.1.0",
     "touch": "0.0.3",
     "yargs": "^3.8.0"
