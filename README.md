@@ -55,7 +55,6 @@ autoload -U compinit
 compinit
 zstyle ':completion:*' menu select=2
 compdef _jump j # You only need this line if you aliased "jump" to "j"
-
 ```
 
-*Copyright Duncan Smith 2015*
+**MIT License: see [https://github.com/notduncansmith/jumpy/blob/master/LICENSE.md](LICENSE.md) for details.**
