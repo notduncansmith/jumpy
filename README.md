@@ -57,4 +57,4 @@ zstyle ':completion:*' menu select=2
 compdef _jump j # You only need this line if you aliased "jump" to "j"
 ```
 
-**MIT License: see [https://github.com/notduncansmith/jumpy/blob/master/LICENSE.md](LICENSE.md) for details.**
+**MIT License: see [LICENSE.md](https://github.com/notduncansmith/jumpy/commit/2c6b68400fc06645d37b81a9cc123283fbdda0e0) for details.**
